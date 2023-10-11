@@ -35,7 +35,7 @@ In this project, we use docker-compose to manage multiple services, each respons
 
 Navigate to the main application in your web browser. If running locally, it's typically:
 
-`https://localhost`
+`https://app.benny.com`
 
 Use the application's features:
 
@@ -44,7 +44,7 @@ Extract data elements from provided unstructured text inputs.
 
 The Django admin panel can be accessed at:
 
-`https://localhost/admin/`
+`https://app.benny.com/admin/`
 
 ## Nginx Configuration
 
@@ -58,7 +58,7 @@ Install mkcert on your system. Please refer to the official documentation for in
 
 ## Makefile Commands
 
-- `sudo make create_certs` Is used to generate local certs for using ssl request locally, You need to install mkcert in order to run this command
+- `sudo make create_certs` Is used to generate local certs and add a cert to your local etc/host for app.benny.com for using ssl request locally, You need to install mkcert in order to run this command
 - `make build`: Builds the Docker containers.
 - `make up`: Starts the Docker containers.
 - `make down`: Stops the Docker containers.
