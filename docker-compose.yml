@@ -60,6 +60,14 @@ services:
     depends_on:
       - db
       - redis
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+    - NEXT_PUBLIC_BACKEND_URL=http://web:8000
 
 volumes:
   db-data:
