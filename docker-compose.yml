@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
@@ -43,6 +43,7 @@ services:
       - ./nginx/local.crt:/etc/ssl/local.crt
       - ./nginx/local.key:/etc/ssl/local.key
       - static-volume:/usr/src/static
+      - .:/usr/src/benny
     ports:
       - "${NGINX_PORT:-443}:443"
       - "8888:80"
@@ -61,13 +62,15 @@ services:
       - db
       - redis
   frontend:
+    env_file:
+      - frontend.env
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
-    - NEXT_PUBLIC_BACKEND_URL=http://web:8000
+      - NEXT_PUBLIC_BACKEND_URL=http://web:8000
 
 volumes:
   db-data:

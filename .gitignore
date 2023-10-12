@@ -39,3 +39,7 @@ nginx/local.key
 
 # Local history for postgres
 .psql_history
+
+#static
+static/
+```
