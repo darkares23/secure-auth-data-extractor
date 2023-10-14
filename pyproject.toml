@@ -38,7 +38,7 @@ pytest-xdist = "~=3.1"
 ruff = "~=0.0.221"
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "marvel_api.settings_test"
+DJANGO_SETTINGS_MODULE = "benny.settings_test"
 python_files = [
     "test_*.py",
 ]
