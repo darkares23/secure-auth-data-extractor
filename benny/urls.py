@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from .views import get
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("auth_data_extractor.urls")),
-    path('auth/', include('social_django.urls', namespace='social')),
 ]

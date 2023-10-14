@@ -1,21 +1,19 @@
-import jwt
-import requests
+from django.conf import settings
+from google.auth.transport import requests as google_requests
+from google.oauth2 import id_token
 
 from ..interfaces.authenticator_interface import AuthenticatorInterface
 
 
 class GoogleAuthenticator(AuthenticatorInterface):
-    GOOGLE_PUBLIC_KEYS_URL = "https://www.googleapis.com/oauth2/v3/certs"
-
     def authenticate(self, token: str) -> dict:
-        # Fetch Google's public keys
-        response = requests.get(self.GOOGLE_PUBLIC_KEYS_URL)
-        jwks = response.json()
+        try:
+            # Verify the token using Google's libraries
+            idinfo = id_token.verify_oauth2_token(token, google_requests.Request(), settings.GOOGLE_CLIENT_ID)
 
-        # Verify the token. This will raise an error if the token is invalid.
-        header = jwt.get_unverified_header(token)
-        public_key = jwks[header["kid"]]
-        payload = jwt.decode(token, public_key, algorithms=["RS256"], audience="YOUR_GOOGLE_CLIENT_ID")
+            # If verification is successful, return the user's information
+            return {"name": idinfo["name"], "email": idinfo["email"]}
 
-        # Return user's information
-        return {"name": payload["name"], "email": payload["email"]}
+        except ValueError:
+            # If there's any issue with the verification, raise an exception
+            raise ValueError("Invalid or expired token")
