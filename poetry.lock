@@ -547,31 +547,32 @@ saml = ["python3-saml (>=1.15.0,<2.0.0)"]
 
 [[package]]
 name = "django-crispy-forms"
-version = "2.0"
+version = "2.1"
 description = "Best way to have Django DRY forms"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "django-crispy-forms-2.0.tar.gz", hash = "sha256:90193b068bf948d9c68449bc8260afed1a8e2afe11ee0bac8c4ebfaeb175b322"},
-    {file = "django_crispy_forms-2.0-py3-none-any.whl", hash = "sha256:d1d4e585929058a9ab3b797666ea5b69320b9ba7937f9d146d32173246a6fd13"},
+    {file = "django-crispy-forms-2.1.tar.gz", hash = "sha256:4d7ec431933ad4d4b5c5a6de4a584d24613c347db9ac168723c9aaf63af4bb96"},
+    {file = "django_crispy_forms-2.1-py3-none-any.whl", hash = "sha256:d592044771412ae1bd539cc377203aa61d4eebe77fcbc07fbc8f12d3746d4f6b"},
 ]
 
 [package.dependencies]
-django = ">=3.2"
+django = ">=4.2"
 
 [[package]]
-name = "django-encrypted-fields"
-version = "1.1.2"
-description = "This is a collection of Django Model Field classes that are encrypted using Keyczar."
+name = "django-encrypted-model-fields"
+version = "0.6.5"
+description = "A set of fields that wrap standard Django fields with encryption provided by the python cryptography library."
 optional = false
-python-versions = "*"
+python-versions = ">=3.6,<4.0"
 files = [
-    {file = "django-encrypted-fields-1.1.2.tar.gz", hash = "sha256:181abace139fb7b028ac689a7467d30cef1e754ab1e4d4225a2592be0264b3fa"},
+    {file = "django-encrypted-model-fields-0.6.5.tar.gz", hash = "sha256:8bd21c5565c0d64ec4dbd375ad34fea68b4da2db871dec3fa71fe7b5e4221c99"},
+    {file = "django_encrypted_model_fields-0.6.5-py3-none-any.whl", hash = "sha256:b21bbdd8ae2e1a0ea37a5049b3ba46e6e63bf287ad241219a058fac1070796cc"},
 ]
 
 [package.dependencies]
-Django = ">=1.4"
-python-keyczar = ">=0.71c"
+cryptography = ">=3.4"
+Django = ">=2.2"
 
 [[package]]
 name = "django-environ"
@@ -831,6 +832,7 @@ files = [
 
 [package.dependencies]
 amqp = ">=5.1.1,<6.0.0"
+typing-extensions = {version = "*", markers = "python_version < \"3.10\""}
 vine = "*"
 
 [package.extras]
@@ -1058,16 +1060,6 @@ files = [
 ]
 
 [[package]]
-name = "pycrypto"
-version = "2.6.1"
-description = "Cryptographic modules for Python."
-optional = false
-python-versions = "*"
-files = [
-    {file = "pycrypto-2.6.1.tar.gz", hash = "sha256:f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c"},
-]
-
-[[package]]
 name = "pyjwt"
 version = "2.8.0"
 description = "JSON Web Token implementation in Python"
@@ -1160,20 +1152,6 @@ files = [
 
 [package.dependencies]
 six = ">=1.5"
-
-[[package]]
-name = "python-keyczar"
-version = "0.716"
-description = "Toolkit for safe and simple cryptography"
-optional = false
-python-versions = "*"
-files = [
-    {file = "python-keyczar-0.716.tar.gz", hash = "sha256:f9b614112dc8248af3d03b989da4aeca70e747d32fe7e6fce9512945365e3f83"},
-]
-
-[package.dependencies]
-pyasn1 = "*"
-pycrypto = ">2.0"
 
 [[package]]
 name = "python3-openid"
@@ -1687,5 +1665,5 @@ files = [
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.10"
-content-hash = "f415f990d85a10e42287a40c7731771bba5817728f3a2c6a4aa13fe94224dfc6"
+python-versions = "^3.9"
+content-hash = "e9288782dd27db12a4f6f0cc3135dd7cb805c850b4bd9cb46eb24dc3e5bc3c29"

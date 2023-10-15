@@ -4,7 +4,7 @@ import bleach
 from django.core.validators import EmailValidator
 from django.db import models
 from django.forms import ValidationError
-from encrypted_fields import EncryptedCharField, EncryptedTextField
+from encrypted_model_fields.fields import EncryptedTextField
 
 
 class TimestampedModel(models.Model):
@@ -61,7 +61,7 @@ class ExtractedData(TimestampedModel):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    data = EncryptedTextField()  # Campo cifrado
+    data = EncryptedTextField()
     input_type = models.CharField(max_length=30, choices=INPUT_TYPE_CHOICES)
 
     def clean(self):

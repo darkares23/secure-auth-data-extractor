@@ -2,6 +2,8 @@ import logging
 
 from django.http import JsonResponse
 
+from auth_data_extractor.models import ExtractedData, User
+
 logger = logging.getLogger(__name__)
 
 from drf_spectacular.types import OpenApiTypes
@@ -19,26 +21,10 @@ from auth_data_extractor.data_extractor.serializers.data_extractor_serializer im
 )
 
 
-@extend_schema(
-    request=DataExtractorSerializer,
-)
+@extend_schema(request=DataExtractorSerializer)
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def extract_data(request):
-    """
-    Handle the extraction of data from the provided text.
-
-    Args:
-        request (HttpRequest): The Django request object.
-
-    Returns:
-        JsonResponse: A JSON response containing extracted data or an error message.
-
-    Notes:
-        - This view expects a POST request with a provided text.
-        - The extraction process uses the Strategy Design Pattern and determines the appropriate
-          extractor based on the content of the text.
-    """
     if request.method == "POST":
         text = request.data.get("text") if isinstance(request.data, dict) else request.POST.get("text")
 
@@ -55,9 +41,24 @@ def extract_data(request):
         try:
             # Extract data and return as JSON
             result = extractor.extract_data(text)
+
+            user_email = request.data.get("email")
+            user = User.objects.get(email=user_email)
+
+            # Map the extractor to the input type
+            extractor_map = {
+                InitialContributionPeriodExtractor: "initial_contribution_periods",
+                OfferingPeriodExtractor: "offering_period",
+                SuccessiveOfferingPeriodExtractor: "successive_offering_periods",
+            }
+
+            # Save the extracted data to the ExtractedData model
+            extracted_data = ExtractedData(user=user, data=result, input_type=extractor_map[type(extractor)])
+            extracted_data.clean()
+            extracted_data.save()
+
             return JsonResponse(result)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
 
-    # If not a POST method, return an error
     return JsonResponse({"error": "Only POST method allowed"}, status=405)

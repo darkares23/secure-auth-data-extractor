@@ -26,6 +26,7 @@ GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
+FIELD_ENCRYPTION_KEY = os.environ.get("FIELD_ENCRYPTION_KEY")
 
 CSRF_TRUSTED_ORIGINS = [
     "http://0.0.0.0:8000/*",
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "encrypted_model_fields",
     "rest_framework",
     "drf_spectacular",
     "auth_data_extractor",
@@ -55,10 +57,10 @@ INSTALLED_APPS = [
 ]
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Benny API',
-    'DESCRIPTION': 'Data extractor API for Benny app.',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Benny API",
+    "DESCRIPTION": "Data extractor API for Benny app.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),

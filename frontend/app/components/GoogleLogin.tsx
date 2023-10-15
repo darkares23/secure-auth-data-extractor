@@ -2,7 +2,6 @@
 import { CredentialResponse, GoogleLogin as GLogin } from "@react-oauth/google";
 import { useState, useEffect } from "react";
 import { testGetMethod, verifyGoogleToken } from "../api/apiServices";
-import { text } from "stream/consumers";
 import TextInputComponent from "./TextInputComponent";
 import { Box } from "@mui/material";
 
@@ -44,7 +43,7 @@ export default function GoogleLogin() {
             {(email && name) && (
                 <Box>
                     <p>User is succesfully logged in {name}: {email}</p>
-                    <TextInputComponent />
+                    <TextInputComponent email={email} />
                 </Box>
             )
             }
