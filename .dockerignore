@@ -1,0 +1,13 @@
+.git/
+.gitignore
+.gitmodules
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+node_modules/
+package-lock.json
+yarn.lock
+*.log
+*.swp

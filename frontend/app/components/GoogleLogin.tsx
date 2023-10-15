@@ -2,6 +2,9 @@
 import { CredentialResponse, GoogleLogin as GLogin } from "@react-oauth/google";
 import { useState, useEffect } from "react";
 import { testGetMethod, verifyGoogleToken } from "../api/apiServices";
+import { text } from "stream/consumers";
+import TextInputComponent from "./TextInputComponent";
+import { Box } from "@mui/material";
 
 export default function GoogleLogin() {
     const [email, setEmail] = useState<string | null>(null);
@@ -18,6 +21,7 @@ export default function GoogleLogin() {
 
     async function handleSuccess(credentialResponse: CredentialResponse) {
         if (credentialResponse.credential) {
+            console.log(credentialResponse.credential);
             const json = await verifyGoogleToken(credentialResponse.credential);
             setEmail(json.email);
             setName(json.name);
@@ -37,7 +41,13 @@ export default function GoogleLogin() {
                     useOneTap
                 />
             )}
-            {(email && name) && <p>User is succesfully logged in : {name}   =  {email}</p>}
+            {(email && name) && (
+                <Box>
+                    <p>User is succesfully logged in {name}: {email}</p>
+                    <TextInputComponent />
+                </Box>
+            )
+            }
         </div>
     );
 }

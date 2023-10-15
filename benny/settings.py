@@ -47,15 +47,24 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "drf_spectacular",
     "auth_data_extractor",
     "allauth",
     "allauth.account",
     "crispy_forms",
 ]
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Benny API',
+    'DESCRIPTION': 'Data extractor API for Benny app.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

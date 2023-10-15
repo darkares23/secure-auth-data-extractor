@@ -22,7 +22,6 @@ class FunctionalTests(TestCase):
 
     @patch("google.oauth2.id_token.verify_oauth2_token")
     def test_authenticate_post_route(self, mock_verify):
-        # Define un payload falso que será devuelto por verify_oauth2_token
         mock_payload = {"name": "Test User", "email": "testuser@example.com"}
         mock_verify.return_value = mock_payload
 

@@ -43,3 +43,6 @@ poetry_add:
 
 poetry_lock:
 	docker-compose run --rm web poetry lock [--no-update]
+
+docs: ## Generate Sphinx HTML documentation, including API docs
+	docker-compose run --rm web python manage.py spectacular --color --file schema.yml
