@@ -3,7 +3,11 @@ import { Button, TextField, Container, Typography } from '@mui/material';
 import { extractData } from '../api/apiServices';
 
 
-const TextInputComponent = ( ) => {
+interface TextInputComponentProps {
+    email: string;
+}
+
+const TextInputComponent: React.FC<TextInputComponentProps> = ({ email }) => {
   const [text, setText] = useState<string>('');
   const [result, setResult] = useState<string | null>(null);
 
@@ -14,7 +18,7 @@ const TextInputComponent = ( ) => {
   const handleSubmit = async () => {
     console.log(text);
     try {
-      const data = await extractData(text);
+      const data = await extractData(text, email);
       console.log(data);
       setResult(JSON.stringify(data, null, 2));
     } catch (error) {

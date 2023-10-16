@@ -110,30 +110,6 @@ DATABASES = {
     },
 }
 
-REDIS_PORT = os.environ.get("REDIS_PORT", default=6379)
-REDIS_HOST = os.environ.get("REDIS_HOST", default="redis")
-REDIS_TIMEOUT_SECONDS = os.environ.get("REDIS_TIMEOUT_SECONDS", default=3600)
-REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", default=None)
-
-RQ_QUEUES_REDIS_DB = os.environ.get("RQ_QUEUES_REDIS_DB", default=0)
-RQ_QUEUES = {
-    "default": {
-        "HOST": REDIS_HOST,
-        "PORT": REDIS_PORT,
-        "DB": RQ_QUEUES_REDIS_DB,
-        "DEFAULT_TIMEOUT": REDIS_TIMEOUT_SECONDS,
-        "PASSWORD": REDIS_PASSWORD,
-    }
-}
-
-CELERY_BROKER_URL = "redis://redis:6379/0"
-CELERY_RESULT_BACKEND = "redis://redis:6379/0"
-CELERY_ACCEPT_CONTENT = ["application/json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = "UTC"
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

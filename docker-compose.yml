@@ -58,20 +58,6 @@ services:
       - "3000:3000"
     environment:
       - NEXT_PUBLIC_BACKEND_URL=http://web:8000
-  redis:
-    container_name: redis
-    image: redis:6.2
-    ports:
-      - "6379"
-  celery:
-    container_name: celery
-    build: .
-    command: celery -A benny worker -l info
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-      - redis
 
 volumes:
   db-data:

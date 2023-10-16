@@ -38,6 +38,9 @@ class User(TimestampedModel):
             except ValidationError:
                 raise ValidationError("Invalid email format")
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class ExtractedData(TimestampedModel):
     INPUT_TYPE_CHOICES = [
@@ -59,3 +62,6 @@ class ExtractedData(TimestampedModel):
         valid_input_types = [choice[0] for choice in self.INPUT_TYPE_CHOICES]
         if self.input_type not in valid_input_types:
             raise ValidationError(f"Invalid input type: {self.input_type}")
+
+    def __str__(self) -> str:
+        return self.user

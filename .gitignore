@@ -1,7 +1,5 @@
 # misc
 data/
-redis-stable/
-redis*
 urls.cpython
 urls.cpython-*
 eurofxref-hist.*
