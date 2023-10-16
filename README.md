@@ -40,6 +40,7 @@ Install mkcert on your system. Please refer to the official documentation for in
 
 - `sudo make create_certs` Is used to generate local certs for using ssl request locally, You need to install mkcert in order to run this command
 - `make build`: Builds the Docker containers.
+- `make migrate`: run migrations on db
 - `make superuser`: Creates a Django superuser allowed to access the admin panel where you can visualize all character data and images.
 - `make up`: Starts dockers containers
 
