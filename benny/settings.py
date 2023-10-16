@@ -26,14 +26,11 @@ GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
-FIELD_ENCRYPTION_KEY = os.environ.get("FIELD_ENCRYPTION_KEY")
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://0.0.0.0:8000/*",
-    "https://0.0.0.0:8000/*",
-    "http://localhost/*",
-    "https://localhost/*",
-    "https://app.benny.com/*",
+    "http://0.0.0.0:8000",
+    "http://localhost",
+    "https://app.benny.com",
 ]
 ALLOWED_HOSTS = ["localhost", "app.benny.com"]
 
@@ -47,7 +44,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "encrypted_model_fields",
     "rest_framework",
     "drf_spectacular",
     "auth_data_extractor",
@@ -176,12 +172,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATIC_ROOT = "/usr/src/benny/static"
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

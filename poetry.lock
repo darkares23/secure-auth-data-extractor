@@ -560,21 +560,6 @@ files = [
 django = ">=4.2"
 
 [[package]]
-name = "django-encrypted-model-fields"
-version = "0.6.5"
-description = "A set of fields that wrap standard Django fields with encryption provided by the python cryptography library."
-optional = false
-python-versions = ">=3.6,<4.0"
-files = [
-    {file = "django-encrypted-model-fields-0.6.5.tar.gz", hash = "sha256:8bd21c5565c0d64ec4dbd375ad34fea68b4da2db871dec3fa71fe7b5e4221c99"},
-    {file = "django_encrypted_model_fields-0.6.5-py3-none-any.whl", hash = "sha256:b21bbdd8ae2e1a0ea37a5049b3ba46e6e63bf287ad241219a058fac1070796cc"},
-]
-
-[package.dependencies]
-cryptography = ">=3.4"
-Django = ">=2.2"
-
-[[package]]
 name = "django-environ"
 version = "0.9.0"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
@@ -1666,4 +1651,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "e9288782dd27db12a4f6f0cc3135dd7cb805c850b4bd9cb46eb24dc3e5bc3c29"
+content-hash = "4f913dc120104343e5283527c4873087692a181177c029f7c02fed860db8b764"

@@ -43,7 +43,7 @@ export default function GoogleLogin() {
             {(email && name) && (
                 <Box>
                     <p>User is succesfully logged in {name}: {email}</p>
-                    <TextInputComponent email={email} />
+                    <TextInputComponent />
                 </Box>
             )
             }

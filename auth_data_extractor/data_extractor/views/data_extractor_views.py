@@ -2,8 +2,6 @@ import logging
 
 from django.http import JsonResponse
 
-from auth_data_extractor.models import ExtractedData, User
-
 logger = logging.getLogger(__name__)
 
 from drf_spectacular.types import OpenApiTypes
@@ -41,21 +39,6 @@ def extract_data(request):
         try:
             # Extract data and return as JSON
             result = extractor.extract_data(text)
-
-            user_email = request.data.get("email")
-            user = User.objects.get(email=user_email)
-
-            # Map the extractor to the input type
-            extractor_map = {
-                InitialContributionPeriodExtractor: "initial_contribution_periods",
-                OfferingPeriodExtractor: "offering_period",
-                SuccessiveOfferingPeriodExtractor: "successive_offering_periods",
-            }
-
-            # Save the extracted data to the ExtractedData model
-            extracted_data = ExtractedData(user=user, data=result, input_type=extractor_map[type(extractor)])
-            extracted_data.clean()
-            extracted_data.save()
 
             return JsonResponse(result)
         except Exception as e:

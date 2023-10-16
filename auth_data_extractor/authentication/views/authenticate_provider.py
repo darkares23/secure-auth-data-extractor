@@ -12,11 +12,10 @@ from auth_data_extractor.authentication.serializers.google_auth_serializer impor
 
 logger = logging.getLogger(__name__)
 
+from django.views.decorators.csrf import csrf_exempt
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-
-from auth_data_extractor.models import User, UserAuthentication
 
 
 @api_view(["GET"])
@@ -26,6 +25,7 @@ def authenticate_provider_get(request, *args, **kwargs):
 
 
 @extend_schema(request=GoogleAuthSerializer)
+@csrf_exempt
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def authenticate_provider_post(request, provider):
@@ -52,17 +52,6 @@ def authenticate_provider_post(request, provider):
         try:
             authenticator = AuthenticatorFactory.create(provider)
             user_info = authenticator.authenticate(serializer.validated_data["token"])
-
-            # Check if user already exists
-            user, created = User.objects.get_or_create(email=user_info["email"])
-            if created:
-                user.name = user_info["name"]
-                user.clean()  # Clean data before saving
-                user.save()
-
-            # Store the authentication token and provider
-            auth_instance = UserAuthentication(user=user, provider=provider, token=serializer.validated_data["token"])
-            auth_instance.save()
 
             return Response(user_info, status=status.HTTP_200_OK)
         except Exception as e:

@@ -17,11 +17,11 @@ export const verifyGoogleToken = async (token: string) => {
     return response.json();
 }
 
-export const extractData = async (text: string, email: string) => {
+export const extractData = async (text: string) => {
     const response = await fetch(DATA_EXTRACTION_URL, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ text, email }),
+        body: JSON.stringify({ text }),
     });
 
     if (!response.ok) {

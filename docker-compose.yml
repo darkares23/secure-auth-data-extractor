@@ -11,6 +11,7 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
+
   web:
     container_name: web
     build:
@@ -31,6 +32,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
+
   nginx:
     container_name: nginx
     command: nginx -g "daemon off;"
@@ -43,10 +45,20 @@ services:
       - ./nginx/local.crt:/etc/ssl/local.crt
       - ./nginx/local.key:/etc/ssl/local.key
       - static-volume:/usr/src/benny/static
-      - .:/usr/src/benny
     ports:
       - "${NGINX_PORT:-443}:443"
       - "8888:80"
+
+  frontend:
+    env_file:
+      - frontend.env
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://web:8000
   redis:
     container_name: redis
     image: redis:6.2
@@ -61,16 +73,6 @@ services:
     depends_on:
       - db
       - redis
-  frontend:
-    env_file:
-      - frontend.env
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://web:8000
 
 volumes:
   db-data:
