@@ -36,13 +36,13 @@ OpenID Authentication:
 
 ## Setup
 
-Install mkcert on your system. Please refer to the official documentation for installation instructions for your operating system.
 
 
 
 https://github.com/darkares23/secure-auth-data-extractor/assets/45240616/333f1661-4964-42fa-879d-e7e45424b6a3
 
 
+Install mkcert on your system. Please refer to the official documentation for installation instructions for your operating system.
 
 - `sudo make create_certs` Is used to generate local certs for using ssl request locally, You need to install mkcert in order to run this command
 - `make build`: Builds the Docker containers.
