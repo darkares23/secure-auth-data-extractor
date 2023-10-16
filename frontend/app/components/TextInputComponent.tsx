@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent } from 'react';
 import { Button, TextField, Container, Typography } from '@mui/material';
 import { extractData } from '../api/apiServices';
 
-
 interface TextInputComponentProps {
     email: string;
 }
@@ -15,15 +14,17 @@ const TextInputComponent: React.FC<TextInputComponentProps> = ({ email }) => {
     setText(event.target.value);
   };
 
+  const handleClear = () => {
+    setText('');
+  };
+
   const handleSubmit = async () => {
-    console.log(text);
     try {
       const data = await extractData(text, email);
-      console.log(data);
       setResult(JSON.stringify(data, null, 2));
     } catch (error) {
        console.error(error);
-       setResult("Error al extraer datos.");
+       setResult("Data extracted failed, review the format of the text");
     }
   };
 
@@ -51,9 +52,17 @@ const TextInputComponent: React.FC<TextInputComponentProps> = ({ email }) => {
       >
         Submit
       </Button>
+      <Button
+        fullWidth
+        variant="contained"
+        color="secondary"
+        onClick={handleClear}
+      >
+        Clear
+      </Button>
       {result && (
         <Typography style={{ marginTop: '20px' }}>
-          Resultado:
+          Result:
           <pre>{result}</pre>
         </Typography>
       )}
