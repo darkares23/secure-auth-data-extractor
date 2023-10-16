@@ -9,6 +9,7 @@ from auth_data_extractor.authentication.factories.authenticator_factory import (
 from auth_data_extractor.authentication.serializers.google_auth_serializer import (
     GoogleAuthSerializer,
 )
+from auth_data_extractor.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +53,10 @@ def authenticate_provider_post(request, provider):
         try:
             authenticator = AuthenticatorFactory.create(provider)
             user_info = authenticator.authenticate(serializer.validated_data["token"])
+            user, created = User.objects.get_or_create(email=user_info["email"])
+            if created:
+                user.name = user_info["name"]
+                user.save()
 
             return Response(user_info, status=status.HTTP_200_OK)
         except Exception as e:
