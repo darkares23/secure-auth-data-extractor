@@ -25,17 +25,13 @@ In this project, we use docker-compose to manage multiple services, each respons
 
 - db: This service runs a PostgreSQL database server, which is responsible for storing the application data. Django interacts with the database server to perform CRUD (Create, Read, Update, Delete) operations on the character data.
 
-- redis: This service runs a Redis server, which is an in-memory data structure store that can be used as a message broker for Celery. It helps manage the communication between the main application and the Celery workers.
-
-- celery: This service runs Celery workers that execute asynchronous tasks, such as fetching data from the Marvel API. These workers process tasks in the background, allowing the main application to remain responsive while handling time-consuming operations.
-
 - nginx: This service runs an Nginx web server, which acts as a reverse proxy for the Django web application. Nginx is responsible for handling incoming requests, serving static files, and forwarding requests to the Django application. It can also provide SSL termination for secure HTTPS connections.
 
 ## Usage
 
 Navigate to the main application in your web browser. If running locally, it's typically:
 
-`https://localhost`
+`https://app.benny.com`
 
 Use the application's features:
 
@@ -44,7 +40,7 @@ Extract data elements from provided unstructured text inputs.
 
 The Django admin panel can be accessed at:
 
-`https://localhost/admin/`
+`https://app.benny.com/admin/`
 
 ## Nginx Configuration
 
@@ -58,7 +54,7 @@ Install mkcert on your system. Please refer to the official documentation for in
 
 ## Makefile Commands
 
-- `sudo make create_certs` Is used to generate local certs for using ssl request locally, You need to install mkcert in order to run this command
+- `sudo make create_certs` Is used to generate local certs and add a cert to your local etc/host for app.benny.com for using ssl request locally, You need to install mkcert in order to run this command
 - `make build`: Builds the Docker containers.
 - `make up`: Starts the Docker containers.
 - `make down`: Stops the Docker containers.

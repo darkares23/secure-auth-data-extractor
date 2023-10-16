@@ -15,10 +15,11 @@ nginx/local.crt nginx/local.key:
 create_certs: nginx/local.crt
 
 build: # Build docker images
+	# docker-compose build frontend web nginx db
 	docker-compose build
 
 up: # Ups all the services
-	docker-compose up $(detach) web nginx redis celery
+	docker-compose up $(detach) web nginx frontend
 
 stop:
 	docker-compose down

@@ -21,15 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://0.0.0.0:8000/*",
-    "https://0.0.0.0:8000/*",
-    "http://localhost/*",
-    "https://localhost/*",
+    "http://0.0.0.0:8000",
+    "http://localhost",
+    "https://app.benny.com",
 ]
 ALLOWED_HOSTS = ["localhost", "app.benny.com"]
 
@@ -44,11 +45,24 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "drf_spectacular",
+    "auth_data_extractor",
+    "allauth",
+    "allauth.account",
+    "crispy_forms",
 ]
 
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Benny API",
+    "DESCRIPTION": "Data extractor API for Benny app.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -58,6 +72,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "benny.urls"
@@ -95,30 +110,6 @@ DATABASES = {
     },
 }
 
-REDIS_PORT = os.environ.get("REDIS_PORT", default=6379)
-REDIS_HOST = os.environ.get("REDIS_HOST", default="redis")
-REDIS_TIMEOUT_SECONDS = os.environ.get("REDIS_TIMEOUT_SECONDS", default=3600)
-REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", default=None)
-
-RQ_QUEUES_REDIS_DB = os.environ.get("RQ_QUEUES_REDIS_DB", default=0)
-RQ_QUEUES = {
-    "default": {
-        "HOST": REDIS_HOST,
-        "PORT": REDIS_PORT,
-        "DB": RQ_QUEUES_REDIS_DB,
-        "DEFAULT_TIMEOUT": REDIS_TIMEOUT_SECONDS,
-        "PASSWORD": REDIS_PASSWORD,
-    }
-}
-
-CELERY_BROKER_URL = "redis://redis:6379/0"
-CELERY_RESULT_BACKEND = "redis://redis:6379/0"
-CELERY_ACCEPT_CONTENT = ["application/json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = "UTC"
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -137,6 +128,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    "allauth.account.auth_backends.AuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -153,12 +148,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATIC_ROOT = "/usr/src/static"
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
