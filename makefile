@@ -44,6 +44,3 @@ poetry_add:
 
 poetry_lock:
 	docker-compose run --rm web poetry lock [--no-update]
-
-encryption_key: ## Generate Sphinx HTML documentation, including API docs
-	docker-compose run --rm web python manage.py generate_encryption_key
